@@ -1,6 +1,6 @@
 # occupancy-sensor-exp
 
-This is the repository for the example code related to the Silicon Labs [Occuapncy Sensor EXP](https://www.silabs.com/en/products/development-tools/sensors/occupancy-sensor-evaluation-kit.html). The user's guide, PC side GUI software, and technical board resources can be found on the Silicon Labs website.
+This is the repository for the example code related to the Silicon Labs [Occupancy Sensor EXP](https://www.silabs.com/en/products/development-tools/sensors/occupancy-sensor-evaluation-kit.html). The user's guide, PC side GUI software, and technical board resources can be found on the Silicon Labs website.
 
 To import the software example into Simplicity Studio:
 

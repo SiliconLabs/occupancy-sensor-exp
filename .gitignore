@@ -1,0 +1,16 @@
+# binary outputs
+*.d
+*.o
+*.obj
+*.elf
+*.map
+*.mk
+*.ld
+makefile
+*.axf
+*.bin
+*.s37
+.settings/*
+doxygen/*
+build_util/*
+
