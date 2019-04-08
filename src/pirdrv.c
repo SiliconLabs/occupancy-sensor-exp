@@ -1,7 +1,7 @@
 /***************************************************************************//**
  * @file
  * @brief PIR demonstration code for OCCUPANCY-EXP-EB
- * @version 1.0.0
+ * @version 1.0.1
  *******************************************************************************
  * # License
  * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>

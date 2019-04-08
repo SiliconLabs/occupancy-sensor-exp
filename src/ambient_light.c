@@ -1,7 +1,7 @@
 /***************************************************************************//**
  * @file  ambient_light.c
  * @brief Ambient light sensing demo for the OCCUPANCY-EXP-EB.
- * @version 1.0.0
+ * @version 1.0.1
  *******************************************************************************
  * # License
  * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
@@ -37,7 +37,7 @@ HANDLE si115xHandle;                /** Si115x programmer's toolkit handle for I
 /*******************************************************************************
  ******************************  PROTOTYPES  ***********************************
  ******************************************************************************/
-static void ALS_Init(HANDLE si115xHandle, Si1150_Mode_TypeDef mode);
+static int32_t ALS_Init(HANDLE si115xHandle, Si1150_Mode_TypeDef mode);
 static uint32_t ALS_GetLux(HANDLE si115xHandle, bool lowPowerMode);
 void alsRefreshCallback(RTCDRV_TimerID_t id, void * user);
 
@@ -78,12 +78,24 @@ void ALS_Main(bool lowPowerMode)
   em23Init.vScaleEM23Voltage = emuVScaleEM23_LowPower;
   EMU_EM23Init(&em23Init);
 
+  /* RTCDRV_Init must be before ALS_Init for the delay_10ms to work. */
+  RTCDRV_Init();
+
   /* Configure Si1153 for ambient light sensing. */
   Si1150_Mode_TypeDef mode = si1150ModeForce;
-  ALS_Init(si115xHandle, mode);
+  int32_t retval = ALS_Init(si115xHandle, mode);
+
+  if (retval < 0) {
+    /* Si1153 failed to initialize. */
+    if (!lowPowerMode) {
+      printf("Si1153 initialization failed.\n");
+    }
+    /* Infinite loop here if error occurred. */
+    while (1);
+  }
 
   /* Setup RTC to trigger the ALS refresh rate. */
-  RTCDRV_Init();
+
   NVIC_EnableIRQ(RTCC_IRQn);
   RTCDRV_TimerID_t id;
   RTCDRV_AllocateTimer(&id);
@@ -164,7 +176,7 @@ void Si1150_InitChannel(HANDLE si115xHandle, uint8_t ch, Si1150_InitChannel_Type
  * @brief Initializes the Si115x for ALS measurements.
  * @param[in] mode  Selects autonomous or forced mode operation.
  */
-void ALS_Init(HANDLE si115xHandle, Si1150_Mode_TypeDef mode)
+int32_t ALS_Init(HANDLE si115xHandle, Si1150_Mode_TypeDef mode)
 {
   int16_t retval;
   retval  = Si115xReset(si115xHandle);
@@ -200,6 +212,7 @@ void ALS_Init(HANDLE si115xHandle, Si1150_Mode_TypeDef mode)
   }
 
   retval += Si11xxWriteToRegister(si115xHandle, REG_IRQ_ENABLE, 0x03);
+  return retval;
 }
 
 /**
@@ -454,9 +467,6 @@ int16_t Si11xxBlockWrite(HANDLE si115x_handle, uint8_t  address, uint8_t  length
  */
 void delay_10ms(void)
 {
-//  for (uint16_t i = 0; i < 8192; i++) {
-//  }
-//
   RTCDRV_Delay(10);
 }
 

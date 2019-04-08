@@ -1,7 +1,7 @@
 /***************************************************************************//**
  * @file
  * @brief Header file for PIR demonstration code.
- * @version 1.0.0
+ * @version 1.0.1
  *******************************************************************************
  * # License
  * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>

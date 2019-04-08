@@ -1,7 +1,7 @@
 /***************************************************************************//**
  * @file
  * @brief Main demonstration file for OCCUPANCY-EXP-EB
- * @version 1.0.0
+ * @version 1.0.1
  *******************************************************************************
  * # License
  * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
@@ -38,7 +38,7 @@
 #include "occupancy_exp_main.h"
 
 static volatile bool startTest = false;             // Start selected energy mode test.
-static uint32_t shownDemoMode = demoModeOccupancy;  // The demo selected by button
+static volatile uint32_t shownDemoMode = demoModeOccupancy;  // The demo selected by button
 /*******************************************************************************
  *************************   FUNCTION PROTOTYPES   *****************************
  ******************************************************************************/

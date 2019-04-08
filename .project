@@ -190,5 +190,15 @@
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/platform/Device/SiliconLabs/EFM32PG12B/Source/system_efm32pg12b.c</locationURI>
 		</link>
+		<link>
+			<name>CMSIS/EFR32MG12P/startup_gcc_efr32mg12p.s</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/startup_efr32mg12p.S</locationURI>
+		</link>
+		<link>
+			<name>CMSIS/EFR32MG12P/system_efr32mg12p.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/Device/SiliconLabs/EFR32MG12P/Source/system_efr32mg12p.c</locationURI>
+		</link>
 	</linkedResources>
 </projectDescription>

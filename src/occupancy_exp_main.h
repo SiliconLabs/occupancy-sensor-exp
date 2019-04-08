@@ -1,7 +1,7 @@
 /***************************************************************************//**
  * @file
  * @brief Header file for demo of OCCUPANCY-EXP-EB
- * @version 1.0.0
+ * @version 1.0.1
  *******************************************************************************
  * # License
  * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
@@ -80,18 +80,18 @@
   #define LED_PORT          BSP_GPIO_LED0_PORT
   #define LED_PIN           BSP_GPIO_LED0_PIN
 
-  #define MOTION_B_PORT     gpioPortD
-  #define MOTION_B_PIN      10
+  #define MOTION_B_PORT     gpioPortB
+  #define MOTION_B_PIN      6
 
   #define LDO_SHDN_B_PORT   gpioPortC
   #define LDO_SHDN_B_PIN    9
 
 /* Si1153 Ambient Light Sensor Pins */
   #define SENSOR_SCL_PORT   gpioPortC
-  #define SENSOR_SCL_PIN    11
+  #define SENSOR_SCL_PIN    10
 
   #define SENSOR_SDA_PORT   gpioPortC
-  #define SENSOR_SDA_PIN    10
+  #define SENSOR_SDA_PIN    11
 
   #define SENSOR_INT_PORT   gpioPortB
   #define SENSOR_INT_PIN    7

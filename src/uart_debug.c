@@ -1,7 +1,7 @@
 /***************************************************************************//**
  * @file
  * @brief UART communication to PC side host.
- * @version 1.0.0
+ * @version 1.0.1
  *******************************************************************************
  * # License
  * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
@@ -32,7 +32,7 @@
   #define TX_PORT           gpioPortA
   #define RX_PORT           gpioPortA
   #define TX_PIN            0
-  #define RX_PIN            2
+  #define RX_PIN            1
   #define VCOM_EN_PORT      gpioPortA
   #define VCOM_EN_PIN       5
   #define US0_TX_LOC        USART_ROUTELOC0_TXLOC_LOC0
@@ -46,7 +46,7 @@
   #define VCOM_EN_PORT      gpioPortA
   #define VCOM_EN_PIN       5
   #define US0_TX_LOC        USART_ROUTELOC0_TXLOC_LOC0
-  #define US0_RX_LOC        USART_ROUTELOC0_RXLOC_LOC1
+  #define US0_RX_LOC        USART_ROUTELOC0_RXLOC_LOC0
 #endif
 
 /* GLOBAL VARIABLES */
@@ -163,11 +163,6 @@ static bool TxDmaCallback(unsigned int channel,
  *****************************************************************************/
 bool UART_Debug_IsConnected(void)
 {
-#ifdef EFR32MG12P432F1024GM48
-//#pragma message(Reminder "Uncomment this when hardware fixed!")
-//	if (GPIO_PinInGet(gpioPortB, 12) == 0) //no usb power
-//		return false;
-#endif
   return enabled;
 }
 
