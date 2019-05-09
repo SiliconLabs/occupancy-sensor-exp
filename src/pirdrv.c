@@ -1,7 +1,7 @@
 /***************************************************************************//**
  * @file
  * @brief PIR demonstration code for OCCUPANCY-EXP-EB
- * @version 1.0.1
+ * @version 1.0.2
  *******************************************************************************
  * # License
  * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
@@ -40,7 +40,7 @@ static void PIR_InitNonInverting(void);
 static void PIR_UpdateThresholds(int32_t winBase, uint32_t winSize);
 static void PIR_TransmitSample(PirSample_t *pirSample);
 
-static PIR_Init_TypeDef *config;    /* Configuration of the detection algorithm. */
+static PIR_Init_TypeDef config;    /* Configuration of the detection algorithm. */
 static bool _lowPowerMode = true;   /* Holds lowPowerMode state for use in ADC IRQ handler. */
 static bool motionDetected = false; /* Output of PIR_DetectMotion. */
 volatile bool pirInt = false;       /* Interrupt flag indicating the completion of PIR_DetectMotion. */
@@ -109,7 +109,9 @@ void PIR_Main(bool lowPowerMode)
  */
 void PIR_Init(PIR_Init_TypeDef *init, bool enterEM2)
 {
-  config = init;
+  config.motionOnTime = init->motionOnTime;
+  config.opampMode = init->opampMode;
+  config.winSize = init->winSize;
 
   /* Analog initialization */
   if (init->opampMode == pirOpampModeInternal) {
@@ -288,7 +290,7 @@ static void PIR_InitAdc(bool enterEM2)
   ADC0->SINGLECTRLX &= ~_ADC_SINGLECTRLX_DVL_MASK;
   ADC0->SINGLECTRLX |= (dataValidLevel << _ADC_SINGLECTRLX_DVL_SHIFT);
 
-  PIR_UpdateThresholds(winBase, config->winSize);
+  PIR_UpdateThresholds(winBase, config.winSize);
 
   /****************************************************************************
   ************************ CRYOTIMER Initialization **************************
@@ -393,10 +395,10 @@ bool PIR_DetectMotion(bool lowPowerMode)
     /* If window was broken, move window thresholds to include the latest ADC reading.
      * Thresholds are recalculated in software because samples are batch processed. */
     if (adcSample > adcThreshHigh) {
-      winBase = adcSample - config->winSize / 2;
+      winBase = adcSample - config.winSize / 2;
       motion = true;
     } else if (adcSample < adcThreshLow) {
-      winBase = adcSample + config->winSize / 2;
+      winBase = adcSample + config.winSize / 2;
       motion = true;
     } else {
       /* Window was not broken, update winBase to follow the low frequency drift using a DT 1st order LPF.
@@ -406,7 +408,7 @@ bool PIR_DetectMotion(bool lowPowerMode)
       winBase = (adcSample >> a_shift) + (winBase - (winBase >> a_shift));
     }
 
-    PIR_UpdateThresholds(winBase, config->winSize);
+    PIR_UpdateThresholds(winBase, config.winSize);
     dataValid = ADC0->SINGLEFIFOCOUNT > 0;
 
     /* Transmit the PIR sample data over UART if not in low power mode. */
@@ -436,7 +438,7 @@ bool PIR_DetectMotion(bool lowPowerMode)
 
   /* Assert motion. */
   if (motion) {
-    lockOutCounter = config->motionOnTime;
+    lockOutCounter = config.motionOnTime;
     PIR_MotionOn(lowPowerMode);
   }
 

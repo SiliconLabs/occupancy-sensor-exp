@@ -1,7 +1,7 @@
 /***************************************************************************//**
  * @file  ambient_light.c
  * @brief Ambient light sensing demo for the OCCUPANCY-EXP-EB.
- * @version 1.0.1
+ * @version 1.0.2
  *******************************************************************************
  * # License
  * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>

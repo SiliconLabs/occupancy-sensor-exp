@@ -1,7 +1,7 @@
 /***************************************************************************//**
  * @file  uart_debug.h
  * @brief UART communication to PC side host header.
- * @version 1.0.1
+ * @version 1.0.2
  *******************************************************************************
  * # License
  * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>

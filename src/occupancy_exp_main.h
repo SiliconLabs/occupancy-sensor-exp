@@ -1,7 +1,7 @@
 /***************************************************************************//**
  * @file
  * @brief Header file for demo of OCCUPANCY-EXP-EB
- * @version 1.0.1
+ * @version 1.0.2
  *******************************************************************************
  * # License
  * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
